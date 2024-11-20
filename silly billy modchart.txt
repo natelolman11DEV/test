@@ -1,0 +1,722 @@
+-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/wyButjTMhM)
+-- Decompiled on 2024-11-16 21:25:59
+-- Luau version 6, Types version 3
+-- Time taken: 0.015913 seconds
+
+local module_upvr = {}
+local TweenService_upvr = game:GetService("TweenService")
+local Conductor_upvr = require(game.ReplicatedStorage.Modules.Conductor)
+local tbl_upvr_3 = {}
+local var5_upvw
+local var6_upvw
+local tbl_upvr_2 = {}
+local var8_upvw
+local var9_upvw = 0
+local var10_upvw = false
+local var11_upvw = 1
+local var12_upvw
+local var13_upvw = true
+local var14_upvw = false
+local var15_upvw = 0
+local var16_upvw
+local var17_upvw = false
+local var18_upvw
+local var19_upvw
+local var20_upvw
+local tbl_upvw = {}
+local function var22_upvr(arg1, arg2) -- Line 37
+	--[[ Upvalues[1]:
+		[1]: tbl_upvw (read and write)
+	]]
+	game:GetService("ContentProvider"):PreloadAsync({arg2.Animation.AnimationId})
+	local any_LoadAnimation_result1 = arg2:FindFirstChild("Animator"):LoadAnimation(arg2.Animation)
+	assert(any_LoadAnimation_result1, "Animation was not loaded")
+	any_LoadAnimation_result1.Priority = Enum.AnimationPriority.Action4
+	tbl_upvw[arg1] = any_LoadAnimation_result1
+end
+local function _(arg1) -- Line 47
+	--[[ Upvalues[1]:
+		[1]: tbl_upvr_2 (readonly)
+	]]
+	arg1.Completed:Connect(function() -- Line 48
+		--[[ Upvalues[2]:
+			[1]: tbl_upvr_2 (copied, readonly)
+			[2]: arg1 (readonly)
+		]]
+		table.remove(tbl_upvr_2, table.find(tbl_upvr_2, arg1))
+	end)
+	table.insert(tbl_upvr_2, arg1)
+end
+function module_upvr.preInit() -- Line 54
+	--[[ Upvalues[5]:
+		[1]: var19_upvw (read and write)
+		[2]: var20_upvw (read and write)
+		[3]: var17_upvw (read and write)
+		[4]: var16_upvw (read and write)
+		[5]: var18_upvw (read and write)
+	]]
+	var19_upvw = gameUI.realGameUI.Notes.DadBG
+	var20_upvw = gameUI.realGameUI.Notes.BFBG
+	if not mapProps then
+	else
+		gameUI.Black.ZIndex = -1
+		gameUI.Black.Visible = true
+		var17_upvw = gameHandler.settings.MiddleScroll
+		gameHandler.settings.MiddleScroll = false
+		var16_upvw = gameHandler.settings.DrainEnabled
+		gameHandler.settings.DrainEnabled = false
+		bf:ChangeAnim("BF Silly Billy")
+		dad:ChangeAnim("Silly Billy")
+		if not mapProps then return end
+		var18_upvw = script.ImpactFrame:Clone()
+		var18_upvw:AddTag("waste")
+		var18_upvw.Parent = gameUI
+	end
+end
+local Character4TheCompetitor_upvr = require(game.ReplicatedStorage.Modules.Character4TheCompetitor)
+function module_upvr.init() -- Line 83
+	--[[ Upvalues[11]:
+		[1]: Character4TheCompetitor_upvr (readonly)
+		[2]: var22_upvr (readonly)
+		[3]: module_upvr (readonly)
+		[4]: var13_upvw (read and write)
+		[5]: var14_upvw (read and write)
+		[6]: var12_upvw (read and write)
+		[7]: var8_upvw (read and write)
+		[8]: Conductor_upvr (readonly)
+		[9]: var9_upvw (read and write)
+		[10]: var11_upvw (read and write)
+		[11]: var6_upvw (read and write)
+	]]
+	if not mapProps then
+	else
+		if bf.Description then
+			Character4TheCompetitor_upvr.loadDescription(mapProps.Intro.SillyBF, bf.Description, "R15")
+			Character4TheCompetitor_upvr.loadDescription(mapProps.Intro.FakeBF, bf.Description, "R15")
+		end
+		if dad.Description then
+			Character4TheCompetitor_upvr.loadDescription(mapProps.Intro.SillyBilly, dad.Description, "D15")
+		end
+		var22_upvr("BFIntro", mapProps.Intro.SillyBF:WaitForChild("Humanoid", 10))
+		var22_upvr("DadIntro", mapProps.Intro.SillyBilly:WaitForChild("Humanoid", 10))
+		var22_upvr("FakeBFIntro", mapProps.Intro.FakeBF:WaitForChild("Humanoid", 10))
+		bf.Obj:PivotTo(mapProps.cframes.bf.CFrame)
+		dad.Obj:PivotTo(mapProps.cframes.dad.CFrame)
+		gameHandler.PositioningParts.Spot.CameraOrigin.CFrame = mapProps.cframes["bf cam"].CFrame
+		gameHandler.setProperty("defaultCamZoom", 0.7)
+		function module_upvr.sectionChange(arg1) -- Line 106
+			--[[ Upvalues[2]:
+				[1]: var13_upvw (copied, read and write)
+				[2]: var14_upvw (copied, read and write)
+			]]
+			local var31
+			if var13_upvw then
+				if arg1.mustHitSection == true then
+					var31 = gameHandler.PositioningParts.Spot
+					var31 = mapProps.cframes["bf cam"].CFrame
+					var31.CameraOrigin.CFrame = var31
+					return
+				end
+				var31 = gameHandler.PositioningParts.Spot
+				local function INLINED() -- Internal function, doesn't exist in bytecode
+					var31 = mapProps.cframes["dad camalt"].CFrame
+					return var31
+				end
+				if not var14_upvw or not INLINED() then
+					var31 = mapProps.cframes["dad cam"].CFrame
+				end
+				var31.CameraOrigin.CFrame = var31
+			end
+		end
+		var12_upvw = script.Lyric:Clone()
+		var12_upvw.Parent = gameUI.realGameUI.waste
+		var8_upvw = script.HealthBar:Clone()
+		if not gameHandler.settings.healthBar then
+			var8_upvw.Visible = false
+		end
+		if flipMode then
+			var8_upvw.AnchorPoint = Vector2.new(1, 1)
+			var8_upvw.Position = UDim2.fromScale(1.025, 1.06)
+		else
+			var8_upvw.AnchorPoint = Vector2.new(0, 1)
+			var8_upvw.Position = UDim2.fromScale(-0.025, 1.06)
+		end
+		local X = var8_upvw.Position.X
+		if Conductor_upvr.Downscroll then
+			X = 0.365
+		else
+			X = 1.06
+		end
+		var8_upvw.Position = UDim2.fromScale(X.Scale, X)
+		UIElements.bfIcon.Alpha = 0
+		UIElements.dadIcon.Alpha = 0
+		UIElements.bfIcon.FlipHorizontally = false
+		UIElements.healthBar.Visible = false
+		UIElements.healthBar.BarContainer.Visible = false
+		UIElements.healthBar.BarContainer.GreenBar.Visible = false
+		UIElements.healthBar.BarContainer.RedBar.Visible = false
+		function gameFunctions.HealthBar(arg1, arg2, arg3, arg4, arg5, arg6) -- Line 150
+			--[[ Upvalues[4]:
+				[1]: var9_upvw (copied, read and write)
+				[2]: var11_upvw (copied, read and write)
+				[3]: Conductor_upvr (copied, readonly)
+				[4]: var8_upvw (copied, read and write)
+			]]
+			-- KONSTANTERROR: [0] 1. Error Block 37 start (CF ANALYSIS FAILED)
+			var9_upvw = math.clamp(var9_upvw, 0, 2)
+			local var34
+			if flipMode then
+				var34 = 2
+				var11_upvw = math.clamp(var11_upvw, 0, var34)
+				if Conductor_upvr.Downscroll then
+					var34 = 0.16
+				else
+					var34 = 0.86
+				end
+				arg2.GUI.Position = UDim2.fromScale(0.8, var34)
+				if Conductor_upvr.Downscroll then
+				else
+				end
+				arg3.GUI.Position = UDim2.fromScale(0.766, 0.86)
+				var8_upvw.Bar.Blue.Size = UDim2.fromScale((0.5) * (var11_upvw / 2), 1)
+				var8_upvw.Bar.Red.Size = UDim2.fromScale((0.5) * (var9_upvw / 2), 1)
+				plrStats.Health = 1
+				-- KONSTANTWARNING: GOTO [156] #116
+			end
+			-- KONSTANTERROR: [0] 1. Error Block 37 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [85] 65. Error Block 31 start (CF ANALYSIS FAILED)
+			if Conductor_upvr.Downscroll then
+				-- KONSTANTWARNING: GOTO [97] #74
+			end
+			-- KONSTANTERROR: [85] 65. Error Block 31 end (CF ANALYSIS FAILED)
+		end
+		function gameFunctions.IconBeat() -- Line 184
+		end
+		function gameFunctions.IconBeatAlt() -- Line 185
+		end
+		var6_upvw = mapProps.colors
+		var6_upvw:AddTag("waste")
+		var6_upvw.Parent = game.Lighting
+		game.Lighting.GeographicLatitude = 250
+		var8_upvw.Visible = false
+		var8_upvw.Parent = gameUI.realGameUI.Notes.waste
+	end
+end
+local tbl_upvr_5 = {}
+function module_upvr.preStart()
+	-- Ensure internalSettings and mapProps are initialized
+	internalSettings.OpponentNoteDrain = 0
+
+	if not mapProps then
+		warn("Map properties are not initialized.")
+		return
+	end
+
+	if var17_upvw then
+		-- Flip mode adjustments
+		if flipMode then
+			if Conductor_upvr.Downscroll then
+				var20_upvw.Position = UDim2.new(0.98, 0, 0.5, 0)
+				var20_upvw.AnchorPoint = Vector2.new(1, 1)
+			else
+				var20_upvw.Position = UDim2.new(0.98, 0, 1, 0)
+				var20_upvw.AnchorPoint = Vector2.new(1, 1)
+			end
+			var20_upvw.BackgroundTransparency = 1
+			var20_upvw.Visible = false
+			var19_upvw.Position = UDim2.new(0.5, 0, 1, 0)
+			var19_upvw.AnchorPoint = Vector2.new(0.5, 1)
+		else
+			if Conductor_upvr.Downscroll then
+				var19_upvw.Position = UDim2.new(0.02, 0, 0.5, 0)
+				var19_upvw.AnchorPoint = Vector2.new(0, 1)
+			else
+				var19_upvw.Position = UDim2.new(0.02, 0, 1, 0)
+				var19_upvw.AnchorPoint = Vector2.new(0, 1)
+			end
+			var20_upvw.Position = UDim2.new(0.5, 0, 1, 0)
+			var20_upvw.AnchorPoint = Vector2.new(0.5, 1)
+		end
+	end
+
+	if not flipMode then
+		var19_upvw.Visible = false
+	end
+
+	-- Hide health bar UI
+	if UIElements and UIElements.healthBar then
+		UIElements.healthBar.Visible = false
+		UIElements.healthBar.BarContainer.Visible = false
+		UIElements.healthBar.BarContainer.GreenBar.Visible = false
+		UIElements.healthBar.BarContainer.RedBar.Visible = false
+	else
+		warn("UIElements.healthBar is not properly defined.")
+	end
+
+	-- Position score label
+	local scoreLabelPos = flipMode and 0.784 or 0.233
+	if UIElements and UIElements.scoreLabel then
+		UIElements.scoreLabel.Position = UDim2.fromScale(scoreLabelPos, 0.9)
+	else
+		warn("UIElements.scoreLabel is not properly defined.")
+	end
+
+	gameHandler.setProperty("camZooming", true)
+
+	-- Adjust dad notes
+	if not flipMode then
+		var5_upvw.Size = UDim2.fromScale(0.7, 0.95)
+		var5_upvw.AnchorPoint = Vector2.new(0.5, 1)
+		var5_upvw.Position = UDim2.fromScale(0.4, 1)
+		var5_upvw.ZIndex = 0
+		var5_upvw.Parent = mapProps.mirror.Main1.SurfaceGui
+	else
+		gameUI.realGameUI.Notes.BFNotes.Visible = false
+		for _, v_3 in pairs(playerStrums) do
+			local clone = v_3:Clone()
+			clone.GUI.Parent = mapProps.mirror.Main1.SurfaceGui.DadNotes
+			table.insert(tbl_upvr_3, clone)
+		end
+		mapProps.mirror.Main1.SurfaceGui.DadNotes.Visible = true
+	end
+
+	-- Handle note spawns
+	function module_upvr.NoteSpawn(arg1)
+		if not arg1.MustPress then
+			table.insert(tbl_upvr_5, arg1)
+		end
+	end
+
+	table.sort(tbl_upvr_5, function(arg1, arg2)
+		return arg1.StrumTime < arg2.StrumTime
+	end)
+
+	-- Update function placeholder
+	function module_upvr.Update()
+		for _, note in pairs(tbl_upvr_5) do
+			-- Update logic for notes
+		end
+	end
+
+	-- Adjust player strums if needed
+	local offset = flipMode and 352 or -352
+	for _, v_4 in pairs(playerStrums) do
+		v_4:SetPosition(v_4.DefaultX + offset, nil)
+	end
+
+	HideNotes(true, "both", true, 0.5)
+end
+
+local var72_upvw
+function module_upvr.Start() -- Line 337
+	--[[ Upvalues[7]:
+		[1]: var13_upvw (read and write)
+		[2]: tbl_upvw (read and write)
+		[3]: var72_upvw (read and write)
+		[4]: TweenService_upvr (readonly)
+		[5]: tbl_upvr_2 (readonly)
+		[6]: var15_upvw (read and write)
+		[7]: var8_upvw (read and write)
+	]]
+	if not mapProps then
+	else
+		if bf.Description then
+			for _, v_5 in pairs(mapProps.Intro.FakeBF:GetDescendants()) do
+				if v_5:IsA("ShirtGraphic") or v_5:IsA("Shirt") or v_5:IsA("Pants") or v_5:IsA("Decal") and v_5.Name == "face" or v_5:IsA("BodyColors") then
+					v_5:Destroy()
+				elseif v_5:IsA("MeshPart") and v_5.Name == "Handle" then
+					v_5.TextureID = ""
+					v_5.Color = Color3.new(0.709804, 0.709804, 0.709804)
+					v_5.Material = Enum.Material.SmoothPlastic
+				end
+			end
+			script["Body Colors"]:Clone().Parent = char
+		end
+		if mapProps.Intro.FakeBF.Head:FindFirstChild("HeadWeld") then
+			mapProps.Intro.FakeBF.Head.HeadWeld.C0 = script.HeadWeld.Value
+		end
+		if mapProps.Intro.SillyBF.Head:FindFirstChild("HeadWeld") then
+			mapProps.Intro.SillyBF.Head.HeadWeld.C0 = script.HeadWeld.Value
+		end
+		local Intro_upvr = mapProps.Intro
+		var13_upvw = false
+		local function _(arg1, arg2) -- Line 368
+			return game:GetService("RunService").Heartbeat:Connect(function(arg1_2) -- Line 369
+				--[[ Upvalues[1]:
+					[1]: arg1 (readonly)
+				]]
+				if arg1_2 % 0.001 < 0.001 and gameHandler.PositioningParts.Camera and arg1 then
+					camControls.DisableLerp = true
+					camControls.StayOnCenter = true
+					gameHandler.PositioningParts.Camera.CFrame = arg1.CFrame
+					camControls.targetCam = arg1.CFrame
+					delay(0.2 / rateMultiplier, function() -- Line 376
+						camControls.DisableLerp = false
+						camControls.StayOnCenter = false
+					end)
+				end
+			end)
+		end
+		local SillyBF_upvr = Intro_upvr.SillyBF
+		local SillyBilly_upvr = Intro_upvr.SillyBilly
+		local FakeBF_upvr = Intro_upvr.FakeBF
+		local Positions_upvr = Intro_upvr.Positions
+		gameHandler.setProperty("defaultCamZoom", 0.6)
+		SillyBF_upvr:PivotTo(Positions_upvr.BFPos.CFrame)
+		SillyBilly_upvr:PivotTo(CFrame.new(-1000, -500, -10000))
+		FakeBF_upvr:PivotTo(Positions_upvr.FakeBFPos.CFrame)
+		tbl_upvw.BFIntro:Play(0, 1, rateMultiplier)
+		tbl_upvw.DadIntro:Play(0, 1, rateMultiplier)
+		tbl_upvw.FakeBFIntro:Play(0, 1, rateMultiplier)
+		local BFCam_upvr = SillyBF_upvr.BFCam
+		var72_upvw = game:GetService("RunService").Heartbeat:Connect(function(arg1) -- Line 369
+			--[[ Upvalues[1]:
+				[1]: BFCam_upvr (readonly)
+			]]
+			if arg1 % 0.001 < 0.001 and gameHandler.PositioningParts.Camera and BFCam_upvr then
+				camControls.DisableLerp = true
+				camControls.StayOnCenter = true
+				gameHandler.PositioningParts.Camera.CFrame = BFCam_upvr.CFrame
+				camControls.targetCam = BFCam_upvr.CFrame
+				delay(0.2 / rateMultiplier, function() -- Line 376
+					camControls.DisableLerp = false
+					camControls.StayOnCenter = false
+				end)
+			end
+		end)
+		BFCam_upvr = false
+		gameUI.Black.Visible = BFCam_upvr
+		local any_Create_result1_upvr = TweenService_upvr:Create(SillyBF_upvr.PrimaryPart, TweenInfo.new(3.45 / rateMultiplier), {
+			CFrame = Positions_upvr.BFPos2.CFrame;
+		})
+		BFCam_upvr = any_Create_result1_upvr:Play
+		BFCam_upvr()
+		BFCam_upvr = any_Create_result1_upvr.Completed
+		BFCam_upvr = BFCam_upvr:Connect
+		BFCam_upvr(function() -- Line 48
+			--[[ Upvalues[2]:
+				[1]: tbl_upvr_2 (copied, readonly)
+				[2]: any_Create_result1_upvr (readonly)
+			]]
+			table.remove(tbl_upvr_2, table.find(tbl_upvr_2, any_Create_result1_upvr))
+		end)
+		BFCam_upvr = table.insert
+		BFCam_upvr(tbl_upvr_2, any_Create_result1_upvr)
+		BFCam_upvr = var15_upvw
+		local var93_upvr = BFCam_upvr
+		delay(4 / rateMultiplier, function() -- Line 411
+			--[[ Upvalues[4]:
+				[1]: var93_upvr (readonly)
+				[2]: var15_upvw (copied, read and write)
+				[3]: SillyBF_upvr (readonly)
+				[4]: Positions_upvr (readonly)
+			]]
+			if var93_upvr ~= var15_upvw then
+			else
+				SillyBF_upvr.PrimaryPart.CFrame = Positions_upvr.BFPos3.CFrame
+				gameHandler.setProperty("defaultCamZoom", 0.7)
+			end
+		end)
+		delay(7.2 / rateMultiplier, function() -- Line 417
+			--[[ Upvalues[5]:
+				[1]: var93_upvr (readonly)
+				[2]: var15_upvw (copied, read and write)
+				[3]: FakeBF_upvr (readonly)
+				[4]: TweenService_upvr (copied, readonly)
+				[5]: tbl_upvr_2 (copied, readonly)
+			]]
+			-- KONSTANTERROR: [0] 1. Error Block 13 start (CF ANALYSIS FAILED)
+			if var93_upvr ~= var15_upvw then return end
+			local pairs_result1_3, pairs_result2_6, pairs_result3 = pairs(FakeBF_upvr.mic.LeftMic:GetChildren())
+			-- KONSTANTERROR: [0] 1. Error Block 13 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [29] 22. Error Block 7 start (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [29] 22. Error Block 7 end (CF ANALYSIS FAILED)
+			-- KONSTANTERROR: [18] 14. Error Block 4 start (CF ANALYSIS FAILED)
+			-- KONSTANTWARNING: Failed to evaluate expression, replaced with nil [29.6]
+			-- KONSTANTERROR: [18] 14. Error Block 4 end (CF ANALYSIS FAILED)
+		end)
+		delay(8.4 / rateMultiplier, function() -- Line 433
+			--[[ Upvalues[5]:
+				[1]: var93_upvr (readonly)
+				[2]: var15_upvw (copied, read and write)
+				[3]: SillyBilly_upvr (readonly)
+				[4]: Positions_upvr (readonly)
+				[5]: var72_upvw (copied, read and write)
+			]]
+			if var93_upvr ~= var15_upvw then
+			else
+				SillyBilly_upvr.PrimaryPart.CFrame = Positions_upvr.SillyPos.CFrame
+				if var72_upvw then
+					var72_upvw:Disconnect()
+				end
+				local SillyCam_upvr = SillyBilly_upvr.SillyCam
+				var72_upvw = game:GetService("RunService").Heartbeat:Connect(function(arg1) -- Line 369
+					--[[ Upvalues[1]:
+						[1]: SillyCam_upvr (readonly)
+					]]
+					if arg1 % 0.001 < 0.001 and gameHandler.PositioningParts.Camera and SillyCam_upvr then
+						camControls.DisableLerp = true
+						camControls.StayOnCenter = true
+						gameHandler.PositioningParts.Camera.CFrame = SillyCam_upvr.CFrame
+						camControls.targetCam = SillyCam_upvr.CFrame
+						delay(0.2 / rateMultiplier, function() -- Line 376
+							camControls.DisableLerp = false
+							camControls.StayOnCenter = false
+						end)
+					end
+				end)
+			end
+		end)
+		tbl_upvw.FakeBFIntro.Stopped:Connect(function() -- Line 440
+			--[[ Upvalues[3]:
+				[1]: var93_upvr (readonly)
+				[2]: var15_upvw (copied, read and write)
+				[3]: FakeBF_upvr (readonly)
+			]]
+			if var93_upvr ~= var15_upvw then
+			else
+				FakeBF_upvr.PrimaryPart.CFrame = CFrame.new(-1000, -500, -10000)
+			end
+		end)
+		tbl_upvw.BFIntro.Stopped:Connect(function() -- Line 444
+			--[[ Upvalues[3]:
+				[1]: var93_upvr (readonly)
+				[2]: var15_upvw (copied, read and write)
+				[3]: SillyBF_upvr (readonly)
+			]]
+			if var93_upvr ~= var15_upvw then
+			else
+				SillyBF_upvr.PrimaryPart.CFrame = CFrame.new(-1000, -500, -10000)
+			end
+		end)
+		delay(9.05 / rateMultiplier, function() -- Line 450
+			--[[ Upvalues[2]:
+				[1]: var93_upvr (readonly)
+				[2]: var15_upvw (copied, read and write)
+			]]
+			if var93_upvr ~= var15_upvw then
+			else
+				gameHandler.setProperty("defaultCamZoom", 0.6)
+			end
+		end)
+		delay(10.56 / rateMultiplier, function() -- Line 455
+			--[[ Upvalues[2]:
+				[1]: var93_upvr (readonly)
+				[2]: var15_upvw (copied, read and write)
+			]]
+			if var93_upvr ~= var15_upvw then
+			else
+				gameUI.Fade.BackgroundTransparency = 0
+				if flipMode then
+					HideNotes(false, "left", true, 0.2)
+				end
+			end
+		end)
+		delay(11 / rateMultiplier, function() -- Line 465
+			--[[ Upvalues[9]:
+				[1]: var93_upvr (readonly)
+				[2]: var15_upvw (copied, read and write)
+				[3]: var72_upvw (copied, read and write)
+				[4]: var13_upvw (copied, read and write)
+				[5]: var8_upvw (copied, read and write)
+				[6]: TweenService_upvr (copied, readonly)
+				[7]: tbl_upvr_2 (copied, readonly)
+				[8]: Intro_upvr (readonly)
+				[9]: tbl_upvw (copied, read and write)
+			]]
+			if var93_upvr ~= var15_upvw or not mapProps:FindFirstChild("cframes") then
+			else
+				if var72_upvw then
+					var72_upvw:Disconnect()
+				end
+				gameHandler.setProperty("defaultCamZoom", 0.7)
+				MoveCamera(mapProps.cframes["bf cam"].CFrame)
+				var13_upvw = true
+				if gameHandler.settings.healthBar then
+					var8_upvw.Visible = true
+					UIElements.bfIcon.Alpha = 1
+					UIElements.dadIcon.Alpha = 1
+				end
+				local any_Create_result1_upvr_2 = TweenService_upvr:Create(gameUI.Fade, TweenInfo.new(0.2 / rateMultiplier), {
+					BackgroundTransparency = 1;
+				})
+				any_Create_result1_upvr_2:Play()
+				any_Create_result1_upvr_2.Completed:Connect(function() -- Line 48
+					--[[ Upvalues[2]:
+						[1]: tbl_upvr_2 (copied, readonly)
+						[2]: any_Create_result1_upvr_2 (readonly)
+					]]
+					table.remove(tbl_upvr_2, table.find(tbl_upvr_2, any_Create_result1_upvr_2))
+				end)
+				table.insert(tbl_upvr_2, any_Create_result1_upvr_2)
+				coroutine.resume(coroutine.create(function() -- Line 480
+					--[[ Upvalues[2]:
+						[1]: Intro_upvr (copied, readonly)
+						[2]: tbl_upvw (copied, read and write)
+					]]
+					-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+					HideNotes(false, "both", true, 0.08)
+					script.Bars:Clone().Parent = gameUI.realGameUI.waste
+					if Intro_upvr then
+						Intro_upvr:PivotTo(CFrame.new(-5000, 5000, -5000))
+						for _, v_6 in pairs(Intro_upvr:GetDescendants()) do
+							v_6:Destroy()
+							game:GetService("RunService").RenderStepped:Wait()
+							local _
+						end
+						Intro_upvr:Destroy()
+					end
+					tbl_upvw = {}
+				end))
+			end
+		end)
+	end
+end
+local tbl_upvr = {"left", "down", "up", "right"}
+function module_upvr.P1NoteHit(arg1, arg2, arg3) -- Line 508
+	--[[ Upvalues[4]:
+		[1]: var9_upvw (read and write)
+		[2]: tbl_upvr (readonly)
+		[3]: var11_upvw (read and write)
+		[4]: var10_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [18] 13. Error Block 5 start (CF ANALYSIS FAILED)
+	arg3.noAnimation = true
+	bf:PlayAnimation("sing"..tbl_upvr[arg2 + 1].."alt")
+	do
+		return
+	end
+	-- KONSTANTERROR: [18] 13. Error Block 5 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [33] 25. Error Block 9 start (CF ANALYSIS FAILED)
+	var11_upvw -= 0.007
+	if var10_upvw then
+		var9_upvw += 0.011
+	end
+	-- KONSTANTERROR: [33] 25. Error Block 9 end (CF ANALYSIS FAILED)
+end
+function module_upvr.P2NoteHit(arg1, arg2, arg3) -- Line 532
+	--[[ Upvalues[4]:
+		[1]: var10_upvw (read and write)
+		[2]: var9_upvw (read and write)
+		[3]: var11_upvw (read and write)
+		[4]: tbl_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [12] 9. Error Block 3 start (CF ANALYSIS FAILED)
+	var9_upvw += 0.011
+	do
+		return
+	end
+	-- KONSTANTERROR: [12] 9. Error Block 3 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [16] 13. Error Block 11 start (CF ANALYSIS FAILED)
+	var9_upvw -= 0.017
+	if not arg3.IsSustain then
+		var11_upvw += 0.04
+		var11_upvw -= 0.016
+	end
+	if arg1 == "Alt Animation" then
+		arg3.noAnimation = true
+		bf:PlayAnimation("sing"..tbl_upvr[arg2 + 1].."alt")
+	end
+	-- KONSTANTERROR: [16] 13. Error Block 11 end (CF ANALYSIS FAILED)
+end
+local CustomTween_upvr = require(game.ReplicatedStorage.Modules.CustomTween)
+local var129_upvw
+function module_upvr.EventTrigger(arg1, arg2, arg3) -- Line 557
+	--[[ Upvalues[14]:
+		[1]: var14_upvw (read and write)
+		[2]: var9_upvw (read and write)
+		[3]: var10_upvw (read and write)
+		[4]: var12_upvw (read and write)
+		[5]: CustomTween_upvr (readonly)
+		[6]: var8_upvw (read and write)
+		[7]: tbl_upvr_2 (readonly)
+		[8]: TweenService_upvr (readonly)
+		[9]: var17_upvw (read and write)
+		[10]: var13_upvw (read and write)
+		[11]: var15_upvw (read and write)
+		[12]: var18_upvw (read and write)
+		[13]: var6_upvw (read and write)
+		[14]: var129_upvw (read and write)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [47] 32. Error Block 8 start (CF ANALYSIS FAILED)
+	warn("Dad cannot play animation: "..arg2)
+	do
+		return
+	end
+	-- KONSTANTERROR: [47] 32. Error Block 8 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [54] 38. Error Block 9 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [54] 38. Error Block 9 end (CF ANALYSIS FAILED)
+end
+function module_upvr.cleanUp() -- Line 833
+	--[[ Upvalues[14]:
+		[1]: var15_upvw (read and write)
+		[2]: tbl_upvr_2 (readonly)
+		[3]: var72_upvw (read and write)
+		[4]: var5_upvw (read and write)
+		[5]: var10_upvw (read and write)
+		[6]: var9_upvw (read and write)
+		[7]: var11_upvw (read and write)
+		[8]: var14_upvw (read and write)
+		[9]: var17_upvw (read and write)
+		[10]: var16_upvw (read and write)
+		[11]: var6_upvw (read and write)
+		[12]: tbl_upvr_3 (readonly)
+		[13]: var18_upvw (read and write)
+		[14]: module_upvr (readonly)
+	]]
+	var15_upvw += 1
+	for i, v in pairs(tbl_upvr_2) do
+		if v then
+			v:Cancel()
+		end
+	end
+	if var72_upvw then
+		var72_upvw:Disconnect()
+	end
+	if gameUI:FindFirstChild("Black") then
+		gameUI.Black.Visible = false
+		gameUI.Black.ZIndex = 0
+	end
+	if var5_upvw then
+		var5_upvw.Parent = gameUI.realGameUI.Notes
+		i = 0.95
+		var5_upvw.Size = UDim2.fromScale(0.35, i)
+		i = 1
+		var5_upvw.AnchorPoint = Vector2.new(0, i)
+		i = 1
+		var5_upvw.Position = UDim2.fromScale(0.05, i)
+		var5_upvw.ZIndex = 1
+	end
+	var10_upvw = false
+	var9_upvw = 0
+	var11_upvw = 1
+	var14_upvw = false
+	if gameUI:FindFirstChild("Fade") then
+		gameUI.Fade.BackgroundTransparency = 1
+	end
+	gameHandler.settings.MiddleScroll = var17_upvw
+	gameHandler.settings.DrainEnabled = var16_upvw
+	if var6_upvw then
+		var6_upvw:Destroy()
+		var6_upvw = nil
+	end
+	for _, v_2 in pairs(tbl_upvr_3) do
+		v_2:Destroy()
+	end
+	table.clear(tbl_upvr_3)
+	if var18_upvw then
+		var18_upvw:Destroy()
+		var18_upvw = nil
+	end
+	function module_upvr.NoteSpawn() -- Line 889
+	end
+end
+return module_upvr
